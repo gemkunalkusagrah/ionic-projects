@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -7,26 +8,44 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
   constructor() {}
+  loginForm = new FormGroup(
+    {
+      userName: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      phone: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[0-9]{10}$'),
+      ]),
+      password1: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+      ]),
+      // password2: new FormControl(''),
+    });
 
-  onSubmit(username: any, email: any, password1: any, password2: any) {
-    var validRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if (username == null || username == '') {
-      alert("Name can't be blank");
-      return false;
-    } else if (!email.match(validRegex)) {
-      alert('enter a valid email. eg. abc@gmail.com');
-    } else if (password1.length < 6) {
-      alert('Password must be at least 6 characters long.');
-      return false;
-    } else if (password1 !== password2) {
-      alert('password must be same!');
-      return false;
-    } else {
-      localStorage.setItem('username', username);
-      localStorage.setItem('email', email);
-      localStorage.setItem('password', password1);
-      alert("Data saved in local storage click on show Data button to check ...");
+
+  get userName() {
+    return this.loginForm.get('userName');
+  }
+  get email() {
+    return this.loginForm.get('email');
+  }
+  get password1() {
+    return this.loginForm.get('password1');
+  }
+  get phone() {
+    return this.loginForm.get('phone');
+  }
+
+  loginUser(form: any) {
+    if (form.valid) {
+      console.log('submitted..', form.value.userName);
+      localStorage.setItem('username', this.loginForm.value.userName);
+      localStorage.setItem('email', form.value.email);
+      localStorage.setItem('password', form.value.password1);
+      alert(
+        'Data saved in local storage click on show Data button to check ...'
+      );
     }
   }
 }

@@ -12,37 +12,47 @@
   </ion-header>
 
   <div id="container">
-    <form>
+    <h1> Registration form</h1>
+    <h6 >Register and click on 'Show data' to fetch your data from localstorage</h6><br>
+    <form [formGroup] = "loginForm" (ngSubmit)="loginUser(loginForm)">
       <ion-item lines="full" >
         <ion-label position="floating">User name</ion-label>
-        <ion-input type="text" #userName required></ion-input>
+        <ion-input type="text" formControlName = "userName" ></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Phone Number</ion-label>
+        <ion-input type="text" formControlName = "phone"></ion-input>
+        <span class ="error" *ngIf="phone.invalid && phone.touched">Phone should be a number !</span>
       </ion-item>
 
       <ion-item lines="full">
         <ion-label position="floating">Email</ion-label>
-        <ion-input type="text"#email required></ion-input>
+        <ion-input type="email" formControlName = "email"></ion-input>
+        <span class ="error" *ngIf="email.invalid && email.touched">Email is not valid !</span>
       </ion-item>
 
       <ion-item lines="full">
         <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" #password1 required></ion-input>
+        <ion-input type="password" formControlName = "password1"></ion-input>
+        <span class ="error" *ngIf="password1.invalid && email.touched">Password should be of minimum 4 characters!</span>
       </ion-item>
 
-      <ion-item lines="full">
+      <!-- <ion-item lines="full">
         <ion-label position="floating">Confirm Password</ion-label>
-        <ion-input type="password" #password2 required></ion-input>
-      </ion-item>
+        <ion-input type="password" formControlName = "password2"></ion-input>
+      </ion-item> -->
 
       <ion-row>
         <ion-col>
-          <ion-button (click)="onSubmit(userName.value, email.value, password1.value, password2.value)" color="success" expand="block">Register</ion-button>
+          <ion-button  type="submit" color="success" expand="block">Register</ion-button>
         </ion-col>
       </ion-row>
     </form>
 
     <ion-row>
       <ion-col>
-        <ion-button [routerLink]="['/table-data']" color="warning" expand="block">Show Data</ion-button>
+        <ion-button [disabled]="loginForm.invalid" [routerLink]="['/table-data']" color="primary" expand="block">Show Data</ion-button>
       </ion-col>
     </ion-row>
   </div>

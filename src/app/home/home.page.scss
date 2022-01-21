@@ -3,28 +3,32 @@
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  margin: auto;
+  margin-top: 20px;
 }
 
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+@media screen and (min-width: 800px) {
+  #container{
+    width: 1200px;
+    height: 800px /* The width is 100%, when the viewport is 800px or smaller */
+  }
+  h1{
+    font-size:70px;
+  }
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+h1{
+  color: red;
+  font-size: 40px;
 }
 
-#container a {
-  text-decoration: none;
+ion-item{
+  margin-bottom: 50px;
+}
+
+// ----------------------------------------
+
+.error{
+  color: red;
+  padding-bottom: 5px;
 }
